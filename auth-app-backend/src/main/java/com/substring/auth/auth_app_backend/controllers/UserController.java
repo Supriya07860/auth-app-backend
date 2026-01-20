@@ -23,4 +23,13 @@ public class UserController {
     public ResponseEntity<Iterable<UserDto>> getAllUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
+    //get user by email api endpoint
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email){
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+
+
 }

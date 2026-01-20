@@ -3,6 +3,7 @@ package com.substring.auth.auth_app_backend.services;
 import com.substring.auth.auth_app_backend.dtos.UserDto;
 import com.substring.auth.auth_app_backend.entities.Provider;
 import com.substring.auth.auth_app_backend.entities.User;
+import com.substring.auth.auth_app_backend.exceptions.ResourceNotFoundException;
 import com.substring.auth.auth_app_backend.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (userRepository.existsByEmail(userDto.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("User with given email already exists");
         }
 
         User user = modelMapper.map(userDto, User.class);
@@ -45,7 +46,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByEmail(String email) {
-        return null;
+
+       User user=  userRepository
+                .findByEmail(email)
+                .orElseThrow(()-> new ResourceNotFoundException("User not found with email"));
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override
