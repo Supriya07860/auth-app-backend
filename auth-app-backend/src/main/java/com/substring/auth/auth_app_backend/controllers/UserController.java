@@ -29,7 +29,20 @@ public class UserController {
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email){
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
-
-
-
+    //delete user api endpoint
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
+        userService.deleteUser(userId);
+    }
+    //update user api endpoint
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") String userId){
+        return ResponseEntity.ok( userService.updateUser(userDto, userId));
+    }
+    //get user by id api endpoint
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
 }

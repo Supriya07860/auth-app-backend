@@ -20,6 +20,8 @@ public interface UserService {
     //get user by id
     UserDto getUserById(UUID userId);
 
+    UserDto getUserById(String userId);
+
     //get all users
     Iterable<UserDto> getAllUsers();
 
